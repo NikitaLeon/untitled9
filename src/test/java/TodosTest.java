@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TodosTest {
+
     @Test
     public void shouldAddThreeTasksOfDifferentType() {
         SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
@@ -27,6 +28,68 @@ public class TodosTest {
         Assertions.assertArrayEquals(expected, actual);
     }
     @Test
+    public void taskGet() {
+        Task task = new Task(5);
+        int expected = task.id;
+        int actual = task.getId();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void subtasksEpicGet() {
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+        String[] expected = subtasks;
+        String[] actual = epic.getSubtasks();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void simpleTaskGet() {
+        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+        String expected = simpleTask.title;
+        String actual = simpleTask.getTitle();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void MeetingTopicGet() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+        String expected = meeting.topic;
+        String actual = meeting.getTopic();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void MeetingProjectGet() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+        String expected = meeting.project;
+        String actual = meeting.getProject();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void MeetingStartGet() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+        String expected = meeting.start;
+        String actual = meeting.getStart();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void findQuerySimpleTask() {
         SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
 
@@ -38,6 +101,7 @@ public class TodosTest {
         Task[] actual = todos.search("родителям");
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void findQueryEpic() {
         String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
@@ -51,6 +115,7 @@ public class TodosTest {
         Task[] actual = todos.search("Хлеб");
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void findQueryMeeting() {
         Meeting meeting = new Meeting(
